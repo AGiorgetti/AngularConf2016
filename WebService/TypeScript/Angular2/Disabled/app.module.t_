@@ -1,0 +1,31 @@
+﻿import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { UpgradeAdapter } from '@angular/upgrade';
+
+import { TestComponent } from "./test/test.component"
+
+// we still need to have a <script> reference to angularjs 1.x to have the old application (not loaded with a module loader
+// working), to have this working in visual studio we can:
+// - include the @types/angular .d.ts files in the solution (which is a thing we could have already done if we used TypeScript 
+//   to create the angular 1.x project)
+// - avoid using then and just declare an brand new 'angular' module (as done here)
+declare var angular; // https://github.com/Microsoft/TypeScript/issues/10638
+
+@NgModule({
+    imports: [CommonModule, FormsModule],
+    declarations: [
+        TestComponent
+    ]
+})
+export class AppModule {
+    static configureAdapter(adapter: UpgradeAdapter) {
+        // configure the adapter here
+
+        // downgrade it to angular 1 
+        angular.module('app')
+            .directive('ng2Test', adapter.downgradeNg2Component(TestComponent) as angular.IDirectiveFactory);
+
+        adapter.upgradeNg1Component("sidMonitoringHeartbeats")
+    }
+}

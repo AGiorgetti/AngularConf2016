@@ -1,0 +1,16 @@
+SignalR 3 is not out yet, we need to use a beta package.
+
+Follow the instruction found here:
+https://chsakell.com/2016/10/10/real-time-applications-using-asp-net-core-signalr-angular/
+
+If dotnet restore cannot find the NuGet packages despite the NuGet.config file,
+try to force it:
+
+dotnet restore --configfile NuGet.config
+
+to get a reference to the SignalR IConnectionManager:
+http://stackoverflow.com/questions/37318209/asp-net-core-rc2-signalr-hub-context-outside-request-thread
+
+
+
+

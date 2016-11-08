@@ -1,0 +1,13 @@
+﻿<div>
+	<h2>Heartbeats</h2>
+	<table class="table">
+		<tbody>
+			<tr ng-repeat="log in vm.heartbeats">
+				<td>
+					<span ng-class="{'text-danger': vm.inactive(log.Timestamp)}"><strong>{{log.Id}}</strong> - last haeartbeat on: {{log.Timestamp | moment}}</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<!--<pre>{{vm | json}}</pre>-->
+</div>

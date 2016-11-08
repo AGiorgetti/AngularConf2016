@@ -1,0 +1,27 @@
+﻿<div>
+	<h2>Logs</h2>
+	<div>
+		<button class="btn btn-default" ng-click="vm.prevPage()"><<</button>
+		{{vm.pageIndex}} - {{vm.totalPagesCount}}
+		<button class="btn btn-default" ng-click="vm.nextPage()">>></button>
+	</div>
+	<table class="table">
+		<tbody>
+			<tr ng-repeat="log in vm.logs">
+				<td>
+					{{log.Timestamp | moment}} - {{log.Level}}<br />
+					Source: <strong>{{log.SourceId}}</strong><br />
+					<pre ng-if="log.Msg != null && log.Msg != ''">Message: {{log.Msg}}</pre>
+					<pre ng-if="log.Exception != null && log.Exception != ''"><small>Exception: {{log.Exception}}</small></pre>
+					<pre ng-if="log.ExtraElements != null && log.ExtraElements != ''"><small>ExtraElements: {{log.ExtraElements | json}}</small></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<!--<pre>{{vm | json}}</pre>-->
+	<div>
+		<button class="btn btn-default" ng-click="vm.prevPage()"><<</button>
+		{{vm.pageIndex}} - {{vm.totalPagesCount}}
+		<button class="btn btn-default" ng-click="vm.nextPage()">>></button>
+	</div>
+</div>

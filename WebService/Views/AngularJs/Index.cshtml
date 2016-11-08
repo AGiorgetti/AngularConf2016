@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AngularLayout.cshtml";
+}
+<div data-ng-view=""></div>
+
+@section scripts {
+    <script>
+        
+        // localization:
+        // http://www.hanselman.com/blog/GlobalizationInternationalizationAndLocalizationInASPNETMVC3JavaScriptAndJQueryPart1.aspx
+
+        //Ask ASP.NET what culture we prefer, because we stuck it in a meta tag
+        var culture = $("meta[name='accept-language']").attr("content");
+        if (culture != null && culture !== "en-us" && culture !== "en") {
+            var cultureName = culture.split('-')[0];
+            moment.locale(cultureName);
+            // angularjs localization was set in the bundle!! not really good it's fixed to it!
+        }
+
+        angular.element(document).ready(function () {
+            // start SignalR
+            // abilitiamo il log di SignalR
+            if ($.connection !== undefined) {
+                $.connection.hub.logging = true;
+            }
+
+            // SignalR hubs initialization issues!
+            // http://stackoverflow.com/questions/16064651/the-on-event-on-the-signalr-client-hub-does-not-get-called
+            // http://stackoverflow.com/questions/14273949/signalr-hub-onconnected-not-called-if-no-client-methods
+            // you need to add at least 1 subscription to a method on an Hub for it to be capable of triggering server to client events
+            // and you need to do it BEFORE calling the 'Start' method.
+            // if you do not do it for every hub that need to trigger notification they will not receive them
+            // you can call Hubs, but you will not receive events from them!
+
+            // notificationHub has subscription attached by the previous code
+            // enable subscriptions for this other hubs
+            $.connection.monitoringHub.client.faketoenablesubscriptions = function () { };
+
+            window.hubReady = $.connection.hub.start().done(function () {
+                // todo: add the proper signalr/angulerjs handling.
+                // Startup angular app (right after signalr for now)
+                //angular.bootstrap(document, ['app']);
+                // startup an hybrid application
+                System.import('Angular2').catch(function (err) { console.error(err); });
+            });
+        });
+    </script>
+}

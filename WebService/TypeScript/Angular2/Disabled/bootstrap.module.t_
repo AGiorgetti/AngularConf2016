@@ -1,0 +1,22 @@
+﻿import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { UpgradeAdapter } from "@angular/upgrade";
+
+// import the main application module
+import { AppModule } from "./app.module";
+
+
+@NgModule({
+    imports: [BrowserModule, AppModule],
+    declarations: []
+})
+export class BootstrapModule { }
+
+// the only adapter instance
+export const upgradeAdapter = new UpgradeAdapter(BootstrapModule);
+
+// pass the adapter to the application modules, so they can upgrade and downgrade components
+AppModule.configureAdapter(upgradeAdapter);
+
+// hybrid bootstrap
+upgradeAdapter.bootstrap(document.body, ["app"], { strictDi: true });

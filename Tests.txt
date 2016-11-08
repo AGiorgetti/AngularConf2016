@@ -1,0 +1,5 @@
+Some calls to see if it works:
+
+http://localhost:5000/logApi/GetHeartbeats
+http://localhost:5000/logApi/GetLogs?filterBy=&pageIndex=1&pageSize=3
+http://localhost:5000/logApi/GetRawLogs?limitNumber=10&type=

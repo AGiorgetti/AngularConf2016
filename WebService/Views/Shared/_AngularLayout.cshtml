@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - My ASP.NET Application</title>
+	<environment names="Development">
+		<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="~/css/site.css" />
+	</environment>
+	<environment names="Staging,Production">
+		<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css" asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+			asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+		<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+	</environment>
+	@*
+	<base href="/angularjs/" /> base Url can work, but will cause a reload, better to have a redirect on the first request to activate the SPA *@
+</head>
+
+<body ng-strict-di>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button> @*@Html.ActionLink("Logs Dashboard", "Index", "AngularJs", new { area = "" }, new { @class = "navbar-brand"
+				})*@
+				<a class="navbar-brand" href="/AngularJs/Index#/dashboard">Logs Dashboard</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					@*
+					<li>@Html.ActionLink("Home", "Index", "Home")</li>*@ @*
+					<li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>*@
+					<li><a href="/AngularJs/Index#/dashboard">Dashboard</a></li>
+					<li><a href="/AngularJs/Index#/messages">Messages</a></li>
+					<li>@Html.ActionLink("About", "About", "Home")</li>
+					<li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+				</ul>
+				@Html.Partial("_LoginPartial")
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid body-content">
+		<noscript>
+			<div class="alert">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Warning!</strong> Please enable JavaScript in your browser!
+			</div>
+		</noscript>
+		@RenderBody()
+		<hr />
+		<footer>
+			<p>&copy; @DateTime.Now.Year - SID s.r.l.</p>
+		</footer>
+	</div>
+	<environment names="Development">
+		<script src="~/lib/jquery/dist/jquery.js"></script>
+		<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="~/js/site.js" asp-append-version="true"></script>
+	</environment>
+	<environment names="Staging,Production">
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.3.min.js" asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+			asp-fallback-test="window.jQuery">
+        </script>
+		<script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js" asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+			asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+		<script src="~/js/site.min.js" asp-append-version="true"></script>
+	</environment>
+
+	<!-- let's keep things simple and add all the script tags for the angular 1 application  -->
+
+	<script src="~/lib/moment/moment.js"></script>
+	<script src="~/lib/signalr/jquery.signalr.js"></script>
+	<script src="~/lib/angular/angular.js"></script>
+	<script src="~/lib/angular-route/angular-route.js"></script>
+	<script src="~/signalr/hubs"></script>
+
+	<script src="~/AngularJs/app.js"></script>
+	<script src="~/AngularJs/app.routes.js"></script>
+	<script src="~/AngularJs/Services/filters.js"></script>
+	<!--<script src="~/AngularJs/Services/logsService.js"></script>-->
+	<script src="~/tsc-out/Angular1/Services/logsService.js"></script>
+	<script src="~/AngularJs/App/Messages/messages.js"></script>
+	<script src="~/AngularJs/Dashboard/dashboard.js"></script>
+	<!-- <script src="~/AngularJs/Dashboard/heartbeatsView.js"></script> -->
+	<script src="~/tsc-out/Angular1/Dashboard/heartbeatsView.js"></script>
+	<script src="~/AngularJs/Dashboard/logsView.js"></script>
+
+	<script src="~/node_modules/core-js/client/shim.min.js"></script>
+    <script src="~/node_modules/zone.js/dist/zone.js"></script>
+    <script src="~/node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="~/node_modules/systemjs/dist/system.src.js"></script>
+
+	<script src="~/system.config.js"></script>	
+
+	@RenderSection("scripts", required: false)
+</body>
+
+</html>
