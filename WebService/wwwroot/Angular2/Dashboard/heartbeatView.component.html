@@ -1,0 +1,12 @@
+<div>
+    <h2>ng2 Heartbeats</h2>
+    <table class="table">
+        <tbody>
+            <tr *ngFor="let log of heartbeats">
+                <td>
+                    <span [ngClass]="{'text-danger': inactive(log.Timestamp)}"><strong>{{log.Id}}</strong> - last haeartbeat on: {{log.Timestamp | moment:'L HH:mm'}}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
